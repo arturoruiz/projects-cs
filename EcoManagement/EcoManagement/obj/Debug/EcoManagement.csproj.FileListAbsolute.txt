@@ -1,0 +1,7 @@
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\EcoManagement\bin\EcoManagement.dll
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\EcoManagement\bin\EcoManagement.pdb
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\EcoManagement\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\EcoManagement\obj\Debug\EcoManagement.dll
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\EcoManagement\obj\Debug\EcoManagement.pdb
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\EcoManagement\bin\BLL.dll
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\EcoManagement\bin\BLL.pdb

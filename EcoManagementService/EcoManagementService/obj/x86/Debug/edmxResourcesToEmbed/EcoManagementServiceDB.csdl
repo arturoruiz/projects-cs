@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EcoManagementModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="EcoManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Buildings" EntityType="EcoManagementModel.Building" />
+    <EntitySet Name="Classrooms" EntityType="EcoManagementModel.Classroom" />
+    <EntitySet Name="OperatingSystems" EntityType="EcoManagementModel.OperatingSystem" />
+    <EntitySet Name="Roles" EntityType="EcoManagementModel.Role" />
+    <EntitySet Name="Schedules" EntityType="EcoManagementModel.Schedule" />
+    <EntitySet Name="sysdiagrams" EntityType="EcoManagementModel.sysdiagram" />
+    <EntitySet Name="Users" EntityType="EcoManagementModel.User" />
+    <EntitySet Name="Whitelists" EntityType="EcoManagementModel.Whitelist" />
+    <EntitySet Name="Workstations" EntityType="EcoManagementModel.Workstation" />
+    <AssociationSet Name="FK_Classrooms_Buildings" Association="EcoManagementModel.FK_Classrooms_Buildings">
+      <End Role="Buildings" EntitySet="Buildings" />
+      <End Role="Classrooms" EntitySet="Classrooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Schedules_Classrooms" Association="EcoManagementModel.FK_Schedules_Classrooms">
+      <End Role="Classrooms" EntitySet="Classrooms" />
+      <End Role="Schedules" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workstations_Classrooms" Association="EcoManagementModel.FK_Workstations_Classrooms">
+      <End Role="Classrooms" EntitySet="Classrooms" />
+      <End Role="Workstations" EntitySet="Workstations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workstations_OperatingSystems" Association="EcoManagementModel.FK_Workstations_OperatingSystems">
+      <End Role="OperatingSystems" EntitySet="OperatingSystems" />
+      <End Role="Workstations" EntitySet="Workstations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Workstations_Whitelist" Association="EcoManagementModel.FK_Workstations_Whitelist">
+      <End Role="Whitelist" EntitySet="Whitelists" />
+      <End Role="Workstations" EntitySet="Workstations" />
+    </AssociationSet>
+    <AssociationSet Name="UserHasRoles" Association="EcoManagementModel.UserHasRoles">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <FunctionImport Name="GetWorkstationsToBePoweredOFF" ReturnType="Collection(EcoManagementModel.GetWorkstationsToBePoweredOFF_Result)" />
+    <FunctionImport Name="CleanWhitelist" />
+  </EntityContainer>
+  <EntityType Name="Building">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Classrooms" Relationship="EcoManagementModel.FK_Classrooms_Buildings" FromRole="Buildings" ToRole="Classrooms" />
+  </EntityType>
+  <EntityType Name="Classroom">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="BuildingID" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Building" Relationship="EcoManagementModel.FK_Classrooms_Buildings" FromRole="Classrooms" ToRole="Buildings" />
+    <NavigationProperty Name="Schedules" Relationship="EcoManagementModel.FK_Schedules_Classrooms" FromRole="Classrooms" ToRole="Schedules" />
+    <NavigationProperty Name="Workstations" Relationship="EcoManagementModel.FK_Workstations_Classrooms" FromRole="Classrooms" ToRole="Workstations" />
+  </EntityType>
+  <EntityType Name="OperatingSystem">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OSName" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Workstations" Relationship="EcoManagementModel.FK_Workstations_OperatingSystems" FromRole="OperatingSystems" ToRole="Workstations" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Label" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="EcoManagementModel.UserHasRoles" FromRole="Roles" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Schedule">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PowerOn" Type="DateTime" Nullable="false" />
+    <Property Name="PowerDown" Type="DateTime" Nullable="false" />
+    <Property Name="DayOfTheWeek" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="Reason" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="ClassroomID" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Classroom" Relationship="EcoManagementModel.FK_Schedules_Classrooms" FromRole="Schedules" ToRole="Classrooms" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Roles" Relationship="EcoManagementModel.UserHasRoles" FromRole="Users" ToRole="Roles" />
+  </EntityType>
+  <EntityType Name="Whitelist">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Start" Type="DateTime" Nullable="false" />
+    <Property Name="End" Type="DateTime" Nullable="false" />
+    <Property Name="Reason" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Workstations" Relationship="EcoManagementModel.FK_Workstations_Whitelist" FromRole="Whitelist" ToRole="Workstations" />
+  </EntityType>
+  <EntityType Name="Workstation">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="MAC_Address" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="ClassroomID" Type="Int32" Nullable="false" />
+    <Property Name="Admin" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="WhitelistID" Type="Int32" />
+    <Property Name="OSID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Classroom" Relationship="EcoManagementModel.FK_Workstations_Classrooms" FromRole="Workstations" ToRole="Classrooms" />
+    <NavigationProperty Name="OperatingSystem" Relationship="EcoManagementModel.FK_Workstations_OperatingSystems" FromRole="Workstations" ToRole="OperatingSystems" />
+    <NavigationProperty Name="Whitelist" Relationship="EcoManagementModel.FK_Workstations_Whitelist" FromRole="Workstations" ToRole="Whitelist" />
+  </EntityType>
+  <Association Name="FK_Classrooms_Buildings">
+    <End Role="Buildings" Type="EcoManagementModel.Building" Multiplicity="1" />
+    <End Role="Classrooms" Type="EcoManagementModel.Classroom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buildings">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Classrooms">
+        <PropertyRef Name="BuildingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Schedules_Classrooms">
+    <End Role="Classrooms" Type="EcoManagementModel.Classroom" Multiplicity="1" />
+    <End Role="Schedules" Type="EcoManagementModel.Schedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classrooms">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Schedules">
+        <PropertyRef Name="ClassroomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Workstations_Classrooms">
+    <End Role="Classrooms" Type="EcoManagementModel.Classroom" Multiplicity="1" />
+    <End Role="Workstations" Type="EcoManagementModel.Workstation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classrooms">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Workstations">
+        <PropertyRef Name="ClassroomID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Workstations_OperatingSystems">
+    <End Role="OperatingSystems" Type="EcoManagementModel.OperatingSystem" Multiplicity="1" />
+    <End Role="Workstations" Type="EcoManagementModel.Workstation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OperatingSystems">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Workstations">
+        <PropertyRef Name="OSID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Workstations_Whitelist">
+    <End Role="Whitelist" Type="EcoManagementModel.Whitelist" Multiplicity="0..1" />
+    <End Role="Workstations" Type="EcoManagementModel.Workstation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Whitelist">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Workstations">
+        <PropertyRef Name="WhitelistID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserHasRoles">
+    <End Role="Roles" Type="EcoManagementModel.Role" Multiplicity="*" />
+    <End Role="Users" Type="EcoManagementModel.User" Multiplicity="*" />
+  </Association>
+  <ComplexType Name="GetWorkstationsToBePoweredOFF_Result">
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="MAC_Address" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="OSName" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="ClassroomID" Nullable="false" />
+  </ComplexType>
+</Schema>

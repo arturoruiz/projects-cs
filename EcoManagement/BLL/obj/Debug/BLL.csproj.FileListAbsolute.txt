@@ -1,0 +1,6 @@
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\BLL\bin\Debug\BLL.dll
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\BLL\bin\Debug\BLL.pdb
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\BLL\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\BLL\obj\Debug\BLL.dll
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\BLL\obj\Debug\BLL.pdb
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\EcoManagement\BLL\bin\Debug\BLL.dll.config

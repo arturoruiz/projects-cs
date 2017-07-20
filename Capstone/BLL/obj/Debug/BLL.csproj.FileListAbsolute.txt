@@ -1,0 +1,12 @@
+D:\Dropbox\Projects\Capstone\BLL\obj\Debug\ResolveAssemblyReference.cache
+D:\Dropbox\Projects\Capstone\BLL\bin\Debug\BLL.dll.config
+D:\Dropbox\Projects\Capstone\BLL\bin\Debug\BLL.dll
+D:\Dropbox\Projects\Capstone\BLL\bin\Debug\BLL.pdb
+D:\Dropbox\Projects\Capstone\BLL\obj\Debug\BLL.dll
+D:\Dropbox\Projects\Capstone\BLL\obj\Debug\BLL.pdb
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\Capstone\BLL\bin\Debug\BLL.dll.config
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\Capstone\BLL\bin\Debug\BLL.dll
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\Capstone\BLL\bin\Debug\BLL.pdb
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\Capstone\BLL\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\Capstone\BLL\obj\Debug\BLL.dll
+C:\Users\Arturo Ruiz\Documents\Visual Studio 2010\Projects\Capstone\BLL\obj\Debug\BLL.pdb
